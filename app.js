@@ -821,11 +821,11 @@ function pillGroup(options, active, filterKey, colorClass = "active") {
 }
 
 function rarityForActivity(activity, index = 0) {
-  if (activity.visibility === "私密") return { key: "legend", label: "LEGEND", text: "私密票", sigil: "P" };
-  if (activity.status === "已确认") return { key: "jade", label: "SEALED", text: "已确认", sigil: "S" };
+  if (activity.visibility === "私密") return { key: "legend", label: "私密", text: "私密票", sigil: "私" };
+  if (activity.status === "已确认") return { key: "jade", label: "已确认", text: "已确认", sigil: "定" };
   return index % 2 === 0
-    ? { key: "jade", label: "RARE", text: "公开局", sigil: "R" }
-    : { key: "arcane", label: "ARCANE", text: "招募中", sigil: "A" };
+    ? { key: "jade", label: "公开", text: "公开局", sigil: "约" }
+    : { key: "arcane", label: "招募中", text: "招募中", sigil: "玩" };
 }
 
 function passCard(activity, index = 0) {
@@ -837,7 +837,7 @@ function passCard(activity, index = 0) {
     <article class="vault-pass ${rarity.key}">
       <button class="pass-hit" data-action="select-activity" data-id="${esc(activity.id)}" aria-label="查看 ${esc(activity.title)}"></button>
       <div class="pass-top">
-        <span>NO.${String(index + 1).padStart(3, "0")}</span>
+        <span>活动 ${String(index + 1).padStart(2, "0")}</span>
         <b>${rarity.label}</b>
       </div>
       <div class="pass-art">
@@ -926,13 +926,13 @@ function renderDiscover() {
     <section class="section ${state.activeTab === "discover" ? "active" : ""}">
       <div class="vault-hero">
         <div class="vault-kicker">
-          <span>HANGOUT / CARD VAULT</span>
+          <span>约玩票夹</span>
           <b>V3</b>
         </div>
-        <h2>把每次约人，做成一张稀有票。</h2>
-        <p>${featured ? `今晚首推 ${esc(featured.place.name)} · ${esc(featured.reason)}` : "从地点、时间、朋友状态里，铸造一张可以分享的活动卡。"}</p>
+        <h2>把每次约人，做成一张可投票的活动票。</h2>
+        <p>${featured ? `今晚首推 ${esc(featured.place.name)} · ${esc(featured.reason)}` : "从地点、时间、朋友状态里，生成一张可以分享的活动卡。"}</p>
         <div class="hero-actions">
-          <button class="primary-cta" data-tab="plan">${icons.plus} 铸造新票</button>
+          <button class="primary-cta" data-tab="plan">${icons.plus} 发起活动</button>
           <button class="secondary-cta" data-tab="places">${icons.search} 浏览卡库</button>
           <button class="secondary-cta dark" data-action="install-app">${icons.spark} 安装</button>
         </div>
@@ -951,7 +951,7 @@ function renderDiscover() {
         </div>
       </div>
       <div class="pass-stack">
-        ${walletActivities.slice(0, 4).map(passCard).join("") || `<div class="empty-state">还没有自己的活动票，先铸造一张。</div>`}
+        ${walletActivities.slice(0, 4).map(passCard).join("") || `<div class="empty-state">还没有自己的活动票，先创建一张。</div>`}
       </div>
 
       <div class="section-title">
@@ -995,7 +995,7 @@ function renderPlaces() {
   return `
     <section class="section ${state.activeTab === "places" ? "active" : ""}">
       <div class="page-heading">
-        <span class="eyebrow">PLACE / VAULT</span>
+        <span class="eyebrow">地点素材</span>
         <h2>地点卡库</h2>
       </div>
 
@@ -1037,14 +1037,14 @@ function renderPlan() {
   return `
     <section class="section ${state.activeTab === "plan" ? "active" : ""}">
       <div class="page-heading">
-        <span class="eyebrow">MINT / PASS</span>
-        <h2>铸造新活动票</h2>
+        <span class="eyebrow">发起邀约</span>
+        <h2>创建新活动票</h2>
       </div>
 
       <div class="form-card">
         <div class="mint-preview">
-          <span>NO.NEW</span>
-          <b>${state.create.visibility === "私密" ? "LEGEND" : "RARE"}</b>
+          <span>新活动</span>
+          <b>${state.create.visibility}</b>
           <strong>${esc(state.create.title || "未命名计划")}</strong>
           <em>${state.create.selectedPlaceIds.length} 个候选地点 · ${state.create.timeOptions.filter(Boolean).length} 个候选时间</em>
         </div>
@@ -1110,7 +1110,7 @@ function renderPlan() {
         ${suggestions.map(miniPlace).join("")}
       </div>
 
-      <button class="sticky-submit" data-action="create-activity">${icons.calendar} 铸造活动票</button>
+      <button class="sticky-submit" data-action="create-activity">${icons.calendar} 创建活动票</button>
     </section>
   `;
 }
@@ -1134,7 +1134,7 @@ function renderActivity() {
           <button data-action="copy" data-id="${esc(activity.id)}" aria-label="分享活动">${icons.share}</button>
         </div>
         <div class="pass-top">
-          <span>NO.ACTIVE</span>
+          <span>当前活动</span>
           <b>${rarity.label}</b>
         </div>
         <div class="pass-art">
@@ -1233,7 +1233,7 @@ function renderProfileSheet() {
     <aside class="profile-sheet ${state.ui.profileOpen ? "open" : ""}" aria-label="身份设置" aria-hidden="${state.ui.profileOpen ? "false" : "true"}">
       <div class="profile-cardmark">${esc(user.avatar)}</div>
       <div class="profile-heading">
-        <span>VOTER ID</span>
+        <span>身份信息</span>
         <h2>确认你的投票身份</h2>
         <p>朋友会看到这个名字和手机号。当前是本地演示身份，不会发送短信。</p>
       </div>
@@ -1261,7 +1261,7 @@ function renderShell() {
       <div class="phone-shell">
         <header class="app-topbar">
           <div>
-            <span>HANGOUT VAULT</span>
+            <span>约出来玩</span>
             <strong>约玩票夹</strong>
           </div>
           <button class="avatar-button" data-action="open-profile" aria-label="设置身份">${esc(user.avatar)}</button>
@@ -1276,7 +1276,7 @@ function renderShell() {
           ${[
             ["discover", "票夹", icons.compass],
             ["places", "卡库", icons.search],
-            ["plan", "铸造", icons.plus],
+            ["plan", "发起", icons.plus],
             ["activity", "卡面", icons.calendar]
           ].map(([tab, label, icon]) => `
             <button class="${state.activeTab === tab ? "active" : ""}" data-tab="${tab}" aria-label="${esc(label)}">

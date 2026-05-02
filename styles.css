@@ -94,7 +94,7 @@ img {
 }
 
 .desktop-stage::after {
-  content: "CARD VAULT MOBILE";
+  content: "移动端演示";
   position: fixed;
   top: 28px;
   left: calc(50% + 238px);
