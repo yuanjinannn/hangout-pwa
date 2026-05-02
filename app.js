@@ -763,6 +763,16 @@ function switchUser() {
   showToast(`已切换为 ${currentUser().nickname}`);
 }
 
+function resetDemoData() {
+  if (!window.confirm("重置后会清空当前演示数据，恢复到初始票夹。确定继续吗？")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state = clone(defaultState);
+  state.ui.profileOpen = false;
+  saveState();
+  render();
+  showToast("演示数据已重置");
+}
+
 function setProfileOpen(open) {
   state.ui.profileOpen = open;
   saveState();
@@ -1239,6 +1249,7 @@ function renderProfileSheet() {
         <button class="secondary-cta dark" data-action="switch-user">切换演示用户</button>
         <button class="primary-cta" data-action="close-profile">确认身份</button>
       </div>
+      <button class="profile-reset" data-action="reset-demo">重置演示数据</button>
     </aside>
   `;
 }
@@ -1370,6 +1381,7 @@ function bindEvents() {
       if (action === "report") reportActivity(id);
       if (action === "copy") copyInvite(id);
       if (action === "switch-user") switchUser();
+      if (action === "reset-demo") resetDemoData();
     });
   });
 }

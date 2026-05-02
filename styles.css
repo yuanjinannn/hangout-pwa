@@ -1594,6 +1594,21 @@ img {
   margin-top: 18px;
 }
 
+.profile-reset {
+  width: 100%;
+  min-height: 42px;
+  margin-top: 12px;
+  border: 1px solid rgba(255, 107, 99, 0.28);
+  border-radius: 8px;
+  background: rgba(255, 107, 99, 0.08);
+  color: var(--danger);
+  font-weight: 800;
+}
+
+.profile-reset:active {
+  transform: scale(0.98);
+}
+
 :focus-visible {
   outline: 3px solid rgba(114, 240, 184, 0.34);
   outline-offset: 3px;
