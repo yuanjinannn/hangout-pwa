@@ -44,3 +44,13 @@ $env:AMAP_KEY="你的高德Web服务Key"
 
 - [下一阶段工作清单](./docs/NEXT_STEPS.md)
 - [QA 冒烟测试清单](./docs/QA_CHECKLIST.md)
+
+## 自动化冒烟测试
+
+在 PowerShell 里运行：
+
+```powershell
+.\scripts\smoke-ui.cmd
+```
+
+脚本会启动本地 PWA 服务，并用 Edge/Chrome 跑一遍主流程：地图搜索、导入地点、铸造活动、投票、确认方案、举报审核、重置演示数据和 PWA 缓存检查。
