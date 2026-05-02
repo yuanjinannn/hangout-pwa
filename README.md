@@ -40,3 +40,7 @@ $env:AMAP_KEY="你的高德Web服务Key"
 - 举报 3 次后活动会进入待审核状态，不再出现在公开广场。
 - PWA 支持安装入口和基础离线缓存。
 
+## 项目文档
+
+- [下一阶段工作清单](./docs/NEXT_STEPS.md)
+- [QA 冒烟测试清单](./docs/QA_CHECKLIST.md)
