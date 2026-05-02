@@ -164,7 +164,7 @@ img {
 }
 
 .app-main {
-  padding: 16px 14px 112px;
+  padding: 16px 14px calc(var(--nav-height) + 58px);
 }
 
 .section {
@@ -1646,7 +1646,8 @@ img {
   }
 
   .vault-hero h2 {
-    font-size: 34px;
+    font-size: 31px;
+    line-height: 1.08;
   }
 
   .quick-stats {

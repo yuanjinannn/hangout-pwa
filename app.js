@@ -929,7 +929,7 @@ function renderDiscover() {
           <span>约玩票夹</span>
           <b>V3</b>
         </div>
-        <h2>把每次约人，做成一张可投票的活动票。</h2>
+        <h2>把每次约人，做成可投票的活动票。</h2>
         <p>${featured ? `今晚首推 ${esc(featured.place.name)} · ${esc(featured.reason)}` : "从地点、时间、朋友状态里，生成一张可以分享的活动卡。"}</p>
         <div class="hero-actions">
           <button class="primary-cta" data-tab="plan">${icons.plus} 发起活动</button>
