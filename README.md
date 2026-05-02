@@ -44,6 +44,7 @@ $env:AMAP_KEY="你的高德Web服务Key"
 
 - [下一阶段工作清单](./docs/NEXT_STEPS.md)
 - [QA 冒烟测试清单](./docs/QA_CHECKLIST.md)
+- [版本说明](./docs/RELEASE_NOTES.md)
 
 ## 自动化冒烟测试
 
