@@ -1,0 +1,32 @@
+{
+  "name": "约出来玩",
+  "short_name": "约玩",
+  "description": "把每次邀约做成一张可分享、可投票、可确认的活动票。",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#151721",
+  "theme_color": "#151721",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "铸造活动票",
+      "short_name": "发起",
+      "url": "./index.html#plan",
+      "description": "快速创建一个新的约玩活动"
+    },
+    {
+      "name": "地点卡库",
+      "short_name": "地点",
+      "url": "./index.html#places",
+      "description": "搜索和推荐附近吃喝玩乐地点"
+    }
+  ]
+}
