@@ -1,9 +1,10 @@
-const CACHE_NAME = "hangout-pwa-v6";
+const CACHE_NAME = "hangout-pwa-v7";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
+  "./app-data.js",
   "./manifest.webmanifest",
   "./icon.svg"
 ];
