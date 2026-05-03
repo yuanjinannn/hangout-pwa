@@ -26,12 +26,16 @@ dist
 
 当前版本是静态 PWA，部署到 Cloudflare Pages 免费计划即可。
 
-未配置后端函数时，`/api/places` 不存在，地点卡库会自动使用本地推荐和手动添加地点。
+项目包含 Cloudflare Pages Function：`functions/api/places.js`。未配置 `AMAP_KEY` 时，地点卡库会自动使用本地推荐和手动添加地点。
 
 ## 启用真实地图搜索
 
-公开部署不要把 `AMAP_KEY` 放进前端代码。后续做法：
+公开部署不要把 `AMAP_KEY` 放进前端代码。请在 Cloudflare Pages 项目设置里添加环境变量：
 
-1. 添加 Cloudflare Pages Function：`functions/api/places.js`。
-2. 在 Cloudflare Pages 项目的 Environment variables 中配置 `AMAP_KEY`。
-3. 在 Function 里请求高德 Web 服务，并返回现有前端需要的 `{ provider, places }` 数据结构。
+```text
+变量名：AMAP_KEY
+变量值：你的高德 Web 服务 Key
+环境：Production
+```
+
+Function 会从 Cloudflare 的环境变量读取 Key，再向高德 Web 服务请求地点数据，并返回前端需要的 `{ provider, places }` 数据结构。

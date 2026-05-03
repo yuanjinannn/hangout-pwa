@@ -34,6 +34,7 @@ let deferredInstallPrompt = null;
 let isComposing = false;
 applyInviteFromHash();
 window.addEventListener("hashchange", applyInviteFromHash);
+setupKeyboardAvoidance();
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -1178,6 +1179,38 @@ function bindEvents() {
       if (action === "reset-demo") resetDemoData();
     });
   });
+}
+
+function isEditableField(element) {
+  if (!element) return false;
+  const tagName = element.tagName;
+  return tagName === "INPUT" || tagName === "TEXTAREA" || tagName === "SELECT";
+}
+
+function setupKeyboardAvoidance() {
+  const touchViewport = window.matchMedia("(max-width: 720px) and (pointer: coarse)");
+  const keyboardThreshold = 120;
+  let timer = null;
+
+  const update = () => {
+    const active = document.activeElement;
+    const viewportShrunk = window.visualViewport
+      ? window.innerHeight - window.visualViewport.height > keyboardThreshold
+      : false;
+    document.body.classList.toggle("keyboard-open", isEditableField(active) && (touchViewport.matches || viewportShrunk));
+  };
+
+  const scheduleUpdate = () => {
+    window.clearTimeout(timer);
+    timer = window.setTimeout(update, 80);
+  };
+
+  document.addEventListener("focusin", scheduleUpdate, true);
+  document.addEventListener("focusout", scheduleUpdate, true);
+  window.addEventListener("orientationchange", scheduleUpdate);
+  touchViewport.addEventListener?.("change", scheduleUpdate);
+  window.visualViewport?.addEventListener("resize", scheduleUpdate);
+  window.visualViewport?.addEventListener("scroll", scheduleUpdate);
 }
 
 function focusKey(el) {
