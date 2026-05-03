@@ -67,3 +67,18 @@ $env:AMAP_KEY="你的高德Web服务Key"
 npm install
 npm run smoke
 ```
+
+## Cloudflare Pages
+
+构建公开静态站点：
+
+```powershell
+npm run build:pages
+```
+
+Cloudflare Pages 构建设置：
+
+- Build command: `npm run build:pages`
+- Build output directory: `dist`
+
+静态部署默认不包含 `/api/places` 后端，地图搜索会自动回到本地推荐。后续如果要启用真实 POI 搜索，可以再加 Cloudflare Pages Functions，并把 `AMAP_KEY` 放在 Cloudflare 环境变量里。

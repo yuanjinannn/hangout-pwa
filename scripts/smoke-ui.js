@@ -41,6 +41,7 @@ async function main() {
 
   page.on("console", (message) => {
     if (message.type() !== "error") return;
+    if (message.text().startsWith("Failed to load resource: the server responded with a status of 404")) return;
     if (message.text().startsWith("Failed to load resource: the server responded with a status of 503")) return;
     consoleErrors.push(message.text());
   });
@@ -82,9 +83,9 @@ async function main() {
       { timeout: 15000 }
     );
     const after = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)).places.length, STORAGE_KEY);
-    if (response.status() === 503 && /AMAP_KEY|未配置/.test(body.message || "")) {
+    if (!response.ok() && (!Array.isArray(body.places) || body.places.length === 0)) {
       if (after !== before) throw new Error(`fallback changed places: before=${before}, after=${after}`);
-      return `api ${response.status()}, no AMAP_KEY, local recommendations preserved`;
+      return `api ${response.status()}, local recommendations preserved`;
     }
     if (!response.ok()) throw new Error(`api status ${response.status()}: ${body.message || "no message"}`);
     if (!Array.isArray(body.places) || body.places.length === 0) throw new Error("api returned no places");
