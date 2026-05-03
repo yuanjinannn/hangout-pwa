@@ -2,7 +2,7 @@
 
 Before making the repository public:
 
-- Confirm `git grep -n "<known-key-fragment>" $(git rev-list --all)` returns no results.
+- Confirm `git grep -n "<known-key-fragment>" $(git rev-list --all)` returns no results after replacing the placeholder with any key fragment that should not be public.
 - Confirm no real `.env` file is tracked.
 - Keep `AMAP_KEY` only in local shell variables or deployment secret settings.
 - Run `.\scripts\smoke-ui.cmd` without `AMAP_KEY`; it should pass using local recommendations.
