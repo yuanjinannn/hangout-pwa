@@ -49,6 +49,7 @@ $env:AMAP_KEY="你的高德Web服务Key"
 - [下一阶段工作清单](./docs/NEXT_STEPS.md)
 - [QA 冒烟测试清单](./docs/QA_CHECKLIST.md)
 - [版本说明](./docs/RELEASE_NOTES.md)
+- [公开发布检查清单](./docs/PUBLISHING.md)
 
 ## 自动化冒烟测试
 
@@ -59,3 +60,10 @@ $env:AMAP_KEY="你的高德Web服务Key"
 ```
 
 脚本会启动本地 PWA 服务，并用 Edge/Chrome 跑一遍主流程：地图搜索或本地兜底、创建活动、投票、确认方案、举报审核、重置演示数据和 PWA 缓存检查。
+
+如果你是从公开仓库 clone 下来的开发者，可以先安装测试依赖：
+
+```powershell
+npm install
+npm run smoke
+```
