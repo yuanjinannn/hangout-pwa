@@ -40,7 +40,9 @@ async function main() {
   const page = await context.newPage();
 
   page.on("console", (message) => {
-    if (message.type() === "error") consoleErrors.push(message.text());
+    if (message.type() !== "error") return;
+    if (message.text().startsWith("Failed to load resource: the server responded with a status of 503")) return;
+    consoleErrors.push(message.text());
   });
   page.on("pageerror", (error) => consoleErrors.push(error.message));
   page.on("requestfailed", (request) => {
@@ -60,7 +62,7 @@ async function main() {
     return "shell, topbar, and bottom tabs rendered";
   });
 
-  await step("AMap search imports places", async () => {
+  await step("map search imports or falls back", async () => {
     await page.locator(".bottom-nav [data-tab=\"places\"]").click();
     await page.locator("section.active [data-filter=\"placeFilters.query\"]").fill("\u5496\u5561");
     const before = await page.evaluate((key) => {
@@ -80,6 +82,10 @@ async function main() {
       { timeout: 15000 }
     );
     const after = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)).places.length, STORAGE_KEY);
+    if (response.status() === 503 && /AMAP_KEY|未配置/.test(body.message || "")) {
+      if (after !== before) throw new Error(`fallback changed places: before=${before}, after=${after}`);
+      return `api ${response.status()}, no AMAP_KEY, local recommendations preserved`;
+    }
     if (!response.ok()) throw new Error(`api status ${response.status()}: ${body.message || "no message"}`);
     if (!Array.isArray(body.places) || body.places.length === 0) throw new Error("api returned no places");
     if (after <= before) throw new Error(`places not imported: before=${before}, after=${after}`);

@@ -10,11 +10,12 @@
 - 增加一键 UI 冒烟测试：`.\scripts\smoke-ui.cmd`。
 - 清理对外演示文案，把内部英文标签换成更自然的中文。
 - 优化 320px 小屏首页标题和底部导航安全区。
+- 高德 Key 只从环境变量读取，仓库不包含真实密钥。
 
 验证记录：
 
 - `app.js`、`server.js`、`scripts/smoke-ui.js` 语法检查通过。
-- `.\scripts\smoke-ui.cmd` 主流程通过。
+- `.\scripts\smoke-ui.cmd` 主流程通过；无 `AMAP_KEY` 时验证本地兜底，有 `AMAP_KEY` 时验证地图导入。
 - 320px 和 390px 移动端视口截图检查通过。
 
 暂未包含：
